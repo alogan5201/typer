@@ -7,6 +7,7 @@ from skimage import io
 import colorgram
 from icecream import ic
 import argparse
+import json
 
 
 def rgb_to_hex(rgb):
@@ -59,6 +60,7 @@ def create_file(path):
 def save_image( pages:int, sort:str, tag:str, color:str):
     ## URL and headers
     # https://snazzymaps.com/explore?page=1&sort=popular&tag=simple&color=white
+    
     url = "https://snazzymaps.com/explore?page="+str(pages)+"&sort="+sort+"&tag="+tag+"&color="+color
     header = {'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'}
 
@@ -91,7 +93,8 @@ def save_image( pages:int, sort:str, tag:str, color:str):
                 f.write(data)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 cv2.imwrite(dir_path + name, image)
-                print(name)
+                ic(name)
+                
             except Exception as e:
                 pass
 
@@ -104,7 +107,7 @@ if __name__ == "__main__":
     parser.add_argument('-s','--sort', type=str, default="popular", help='Category; relevance, popular, recent')
     parser.add_argument('-t','--tag', type=str, default="light", help='The Tag filter; light, simple, dark')
     parser.add_argument('-c','--color', type=str, default="white", help='Color; black, white, multi')
-    
+
     args = parser.parse_args()
 
     pages = args.pages
@@ -115,8 +118,10 @@ if __name__ == "__main__":
 
 
     
-    max_pages = [1,2,3,4,5,6,7,8,9,10]
+    #max_pages = [1,2,3,4,5,6,7,8,9,10]
+    max_pages = [1,2]
     # completed= psw;  psb;
+    
     # plw
     for p in max_pages:
         save_image(pages, sort, tag, color )
