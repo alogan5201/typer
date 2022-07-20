@@ -126,23 +126,8 @@ def save_image( pages:int, sort:str, tag:str, color:str, directory:str):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Fetch images from snazzymaps')
-    parser.add_argument('-p','--pages', type=int, default=1, help='Category; relevance, popular, recent')
-    parser.add_argument('-s','--sort', type=str, default="popular", help='Category; relevance, popular, recent')
-    parser.add_argument('-t','--tag', type=str, default="light", help='The Tag filter; light, simple, dark')
-    parser.add_argument('-c','--color', type=str, default="white", help='Color; black, white, multi')
-   #parser.add_argument('-o','--output', type=str, default=None, help='The output file [console]')
-    parser.add_argument('-d','--directory', type=str, default="/media/a/EXTERNAL-SS/downloads/snazzy-maps/", help='The output directory for images [console]')
-
-    args = parser.parse_args()
-
-    pages = args.pages
-    sort = args.sort
-    tag = args.tag
-    color = args.color
-    directory = args.directory
-    uid = b64_fuuid()
-    save_image(pages, sort, tag, color, directory)
+    x = extract_colors("https://snazzy-maps-cdn.azureedge.net/assets/15-subtle-grayscale.png?v=20170626083535")
+    ic(x)
    # output = args.output
     
    # directory = args.directory
