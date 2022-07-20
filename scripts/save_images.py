@@ -1,5 +1,5 @@
 
-import os
+import os, glob
 import requests
 from bs4 import BeautifulSoup
 import cv2
@@ -8,6 +8,8 @@ import colorgram
 from icecream import ic
 import argparse
 import json
+
+
 
 
 def rgb_to_hex(rgb):
@@ -57,7 +59,7 @@ def create_file(path):
     except OSError:
         print("Error")
 #pages=1, sort="popular", tag="simple", color="white"
-def save_image( pages:int, sort:str, tag:str, color:str):
+def save_image( pages:int, sort:str, tag:str, color:str, directory:str):
     ## URL and headers
     # https://snazzymaps.com/explore?page=1&sort=popular&tag=simple&color=white
     
@@ -74,14 +76,14 @@ def save_image( pages:int, sort:str, tag:str, color:str):
         exit()
 
     ## Paths and file for saving the images and data.
-    dir_path = f"Downloads/{sort}/{tag}/{color}/"
-    file_path = f"Downloads/{sort}/{tag}/{color}/{sort}{tag}{color}.csv"
+    dir_path = f"{directory}{sort}/{tag}/{color}/"
+    file_path = f"{directory}{sort}/{tag}/{color}/{sort}{tag}{color}.csv"
 
     create_dir(dir_path)
     create_file(file_path)
 
     f = open(file_path, "a")
-
+    output = []
     for tag in soup.find_all("span", class_="preview-image"):
         
         if tag.img:
@@ -93,12 +95,14 @@ def save_image( pages:int, sort:str, tag:str, color:str):
                 f.write(data)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 cv2.imwrite(dir_path + name, image)
-                ic(name)
-                
+                #ic(src, image, data)
+                file_name = dir_path + name
+                output.append({"name": name, "src": src, "path": file_name})
             except Exception as e:
                 pass
 
-
+    data = { "results": output }
+    return data
 
 
 if __name__ == "__main__":
@@ -107,6 +111,8 @@ if __name__ == "__main__":
     parser.add_argument('-s','--sort', type=str, default="popular", help='Category; relevance, popular, recent')
     parser.add_argument('-t','--tag', type=str, default="light", help='The Tag filter; light, simple, dark')
     parser.add_argument('-c','--color', type=str, default="white", help='Color; black, white, multi')
+    parser.add_argument('-o','--output', type=str, default=None, help='The output file [console]')
+    parser.add_argument('-d','--directory', type=str, default="/media/a/EXTERNAL-SS/downloads/snazzy-maps/", help='The output directory for images [console]')
 
     args = parser.parse_args()
 
@@ -114,15 +120,24 @@ if __name__ == "__main__":
     sort = args.sort
     tag = args.tag
     color = args.color
-
-
-
+    output = args.output
+    directory = args.directory
+    data = save_image(pages, sort, tag, color, directory)
     
+    data = json.dumps(data, sort_keys=True, indent=4)
+    img_dir_path = f"{directory}{sort}/{tag}/{color}/"
+   
+    
+    
+ 
+    if output:
+        with open(output,'w') as f:
+            f.write(data)
+    else:
+        ic(data)
+
     #max_pages = [1,2,3,4,5,6,7,8,9,10]
-    max_pages = [1,2]
     # completed= psw;  psb;
     
-    # plw
-    for p in max_pages:
-        save_image(pages, sort, tag, color )
-    #save_image(term, pages=2)
+    # for p in max_pages:
+    #     save_image(pages, sort, tag, color )
