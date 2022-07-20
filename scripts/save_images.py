@@ -1,46 +1,43 @@
-
+# -*- coding: utf-8 -*-
+import sys
+from urllib.request import urlopen
+import io
 import os, glob
+from numpy import extract
 import requests
 from bs4 import BeautifulSoup
 import cv2
-from skimage import io
+#from skimage import io
 import colorgram
 from icecream import ic
 import argparse
 import json
+from colorthief import ColorThief
+import requests
 
-
-
+with open("../db.json", "r") as fin:
+    db = json.load(fin)
 
 def rgb_to_hex(rgb):
     return '%02x%02x%02x' % rgb
 
-def extractColors(file, colorAmount):
-    # Extract 6 colors from an image.
-    colors = colorgram.extract(file, colorAmount)
+def extract_colors(item_path):
+    output = []
+    
+    # item_path = item['src']
+    fd = urlopen(item_path)
+    f = io.BytesIO(fd.read())
+    color_thief = ColorThief(f)
+    palette = color_thief.get_palette(color_count=3)
+    #print(color_thief.get_color(quality=1))
+    #ic(color_thief.get_palette(quality=1))
+    hex_values=[]
+    for i in palette:
+        hex= rgb_to_hex(i)
+        hex_values.append(hex)
 
-    # colorgram.extract returns Color objects, which let you access
-    # RGB, HSL, and what proportion of the image was that color.
-    first_color = colors[0]
-    rgb = first_color.rgb # e.g. (255, 151, 210)
-    hsl = first_color.hsl # e.g. (230, 255, 203)
-    proportion  = first_color.proportion # e.g. 0.34
-
-    # RGB and HSL are named tuples, so values can be accessed as properties.
-    # These all work just as well:
-    red = rgb[0]
-    red = rgb.r
-    saturation = hsl[1]
-    saturation = hsl.s
-
-
-    hex1=rgb_to_hex((colors[0].rgb[0], colors[0].rgb[1], colors[0].rgb[2]))
-    hex2=rgb_to_hex((colors[1].rgb[0], colors[1].rgb[1], colors[1].rgb[2]))
-    hex3=rgb_to_hex((colors[2].rgb[0], colors[2].rgb[1], colors[2].rgb[2]))
-    #ic(colors[0].rgb, colors[1].rgb, colors[2].rgb)
-
-    ic(hex1, hex2, hex3)
-
+    ic(hex_values)
+    return hex_values
 def create_dir(path):
     """ Create folders """
     try:
@@ -58,6 +55,19 @@ def create_file(path):
             f.close()
     except OSError:
         print("Error")
+def write_post(query):
+    
+    data = db[query]
+    last = data[-1]
+    last_id = last['id']
+    increment_id= last_id + 1
+    ic(increment_id)
+    post = {"id": increment_id, "title": "test", "author": "andrew"}
+    url = f"http://localhost:3004/{query}"
+    response = requests.post(url, json=post)
+    x=response.json()
+    #ic(data['id'])
+    return x
 #pages=1, sort="popular", tag="simple", color="white"
 def save_image( pages:int, sort:str, tag:str, color:str, directory:str):
     ## URL and headers
@@ -89,19 +99,22 @@ def save_image( pages:int, sort:str, tag:str, color:str, directory:str):
         if tag.img:
             try:
                 src = tag.img["src"]
-                image = io.imread(src)
+                #image = io.imread(src)
                 name = src.split("/")[-1].split("?")[0]
                 data = f"{name}\n"
-                f.write(data)
-                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                cv2.imwrite(dir_path + name, image)
+                #f.write(data)
+                #image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                #cv2.imwrite(dir_path + name, image)
                 #ic(src, image, data)
+                
                 file_name = dir_path + name
-                output.append({"name": name, "src": src, "path": file_name})
+                hex_values = extract_colors(src)
+                output.append({"name": name, "src": src, "path": file_name, "hex_values": hex_values})
             except Exception as e:
                 pass
-
-    data = { "results": output }
+    
+    
+    data = { "palettes": output }
     return data
 
 
@@ -125,8 +138,9 @@ if __name__ == "__main__":
     data = save_image(pages, sort, tag, color, directory)
     
     data = json.dumps(data, sort_keys=True, indent=4)
+    
     img_dir_path = f"{directory}{sort}/{tag}/{color}/"
-   
+    
     
     
  
@@ -136,8 +150,4 @@ if __name__ == "__main__":
     else:
         ic(data)
 
-    #max_pages = [1,2,3,4,5,6,7,8,9,10]
-    # completed= psw;  psb;
-    
-    # for p in max_pages:
-    #     save_image(pages, sort, tag, color )
+
