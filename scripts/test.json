@@ -1,61 +1,133 @@
 {
-    "results": [
+    "palettes": [
         {
+            "hex_values": [
+                "efefef",
+                "9a9a9a",
+                "c4c4c4",
+                "bcbcbc"
+            ],
             "name": "151-ultra-light-with-labels.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/151-ultra-light-with-labels.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/151-ultra-light-with-labels.png?v=20170626083737"
         },
         {
+            "hex_values": [
+                "9c9c9c",
+                "eeeeee",
+                "6f6f6f",
+                "acacac"
+            ],
             "name": "15-subtle-grayscale.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/15-subtle-grayscale.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/15-subtle-grayscale.png?v=20170626083535"
         },
         {
+            "hex_values": [
+                "e5e5de",
+                "a4d4d4",
+                "b5d096",
+                "cedab8"
+            ],
             "name": "74-becomeadinosaur.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/74-becomeadinosaur.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/74-becomeadinosaur.png?v=20170626082939"
         },
         {
+            "hex_values": [
+                "0c0c0c",
+                "b1b4b7",
+                "6c6c6c",
+                "b06967"
+            ],
             "name": "79-black-and-white.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/79-black-and-white.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/79-black-and-white.png?v=20170626082438"
         },
         {
+            "hex_values": [
+                "e3e5df",
+                "7bcbcb",
+                "7d7456",
+                "9f9480"
+            ],
             "name": "61-blue-essence.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/61-blue-essence.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/61-blue-essence.png?v=20170626082405"
         },
         {
+            "hex_values": [
+                "e4e4e4",
+                "d4d4d4",
+                "cccccc",
+                "efefef"
+            ],
             "name": "102-clean-grey.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/102-clean-grey.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/102-clean-grey.png?v=20170626083301"
         },
         {
+            "hex_values": [
+                "efefef",
+                "9a9a9a",
+                "bcbcbc",
+                "c4c4c4"
+            ],
             "name": "80-cool-grey.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/80-cool-grey.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/80-cool-grey.png?v=20170626074429"
         },
         {
+            "hex_values": [
+                "2d2d2d",
+                "cecece",
+                "9c9c9c",
+                "8c8c8c"
+            ],
             "name": "117-minimalistic-black-and-white.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/117-minimalistic-black-and-white.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/117-minimalistic-black-and-white.png?v=20170626081425"
         },
         {
+            "hex_values": [
+                "ecedec",
+                "757573",
+                "a4a4a5",
+                "b4b4bc"
+            ],
             "name": "19-subtle.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/19-subtle.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/19-subtle.png?v=20170626083545"
         },
         {
+            "hex_values": [
+                "c0e1fb",
+                "297fd6",
+                "86c0f8",
+                "7194bc"
+            ],
             "name": "7-icy-blue.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/7-icy-blue.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/7-icy-blue.png?v=20170626063457"
         },
         {
+            "hex_values": [
+                "d4d4d4",
+                "484848",
+                "6c6c6c",
+                "747474"
+            ],
             "name": "28442-monomap.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/28442-monomap.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/28442-monomap.png?v=20170626073827"
         },
         {
+            "hex_values": [
+                "dbdad8",
+                "756850",
+                "3f7cc2",
+                "6c6c6c"
+            ],
             "name": "229-simple-and-light.png",
             "path": "/media/a/EXTERNAL-SS/downloads/snazzy-maps/popular/light/white/229-simple-and-light.png",
             "src": "https://snazzy-maps-cdn.azureedge.net/assets/229-simple-and-light.png?v=20170626070354"
